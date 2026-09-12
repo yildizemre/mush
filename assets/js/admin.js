@@ -490,6 +490,16 @@
         '<div class="ad-f"><textarea id="seritler">' + kacir(s.seritler.join('\n')) + '</textarea></div></div>' +
 
       bolumKart('oneCikanlar', 'Öne çıkan ürünler bölümü') +
+
+      '<div class="ad-kart"><h3>Öne çıkan gövdeler</h3>' +
+        '<p>Ana sayfada gösterilecek dört gövde ve sırası. Boş bırakırsanız ' +
+        '“öne çıkan” işaretli ürünler kullanılır.</p>' +
+        '<div class="ad-liste" id="oneCikanListe">' +
+          ((Store.site.bolumler.oneCikanlar.urunler || []).length
+            ? Store.site.bolumler.oneCikanlar.urunler.map(function (id, i) { return oneCikanSatir(id, i); }).join('')
+            : oneCikanSatir('', 0)) +
+        '</div>' +
+        '<button class="ad-ekle" id="oneCikanEkle" style="margin-top:12px">' + I.arti + ' Gövde ekle</button></div>' +
       bolumKart('koleksiyonlar', 'Koleksiyonlar bölümü') +
       bolumKart('atolye', 'Atölye anlatısı bölümü') +
 
@@ -506,6 +516,18 @@
       bolumKart('bulten', 'Bülten bölümü') +
       kaydetBar();
   }
+  function oneCikanSatir(id, i) {
+    return '<div class="ad-satir ad-satir--1" data-i="' + i + '">' +
+      '<div class="ad-f"><label>' + (i + 1) + '. gövde</label><select data-k="id">' +
+        '<option value="">— seçilmedi —</option>' +
+        Store.urunler.filter(function (u) { return !u.hediyeKarti; }).map(function (u) {
+          return '<option value="' + u.id + '"' + (u.id === id ? ' selected' : '') + '>' +
+            kacir(u.ad) + (u.aktif === false ? ' (pasif)' : '') + '</option>';
+        }).join('') +
+      '</select></div>' +
+      '<button class="ad-ikon-btn ad-ikon-btn--sil ad-satir__sil" data-satirSil="1">' + I.cop + '</button></div>';
+  }
+
   function istSatir(x, i) {
     return '<div class="ad-satir" data-i="' + i + '">' +
       '<div class="ad-f"><label>Sayı</label><input data-k="sayi" value="' + kacir(x.sayi) + '"></div>' +
@@ -959,6 +981,10 @@
     }
 
     if (aktif === 'anasayfa') {
+      var oneCikanTopla = listeBagla({
+        kap: '#oneCikanListe', ekle: '#oneCikanEkle',
+        bosSatir: function () { return oneCikanSatir('', 0); }
+      });
       var istTopla = listeBagla({
         kap: '#istListe', ekle: '#istEkle',
         bosSatir: function () { return istSatir({ sayi: '', etiket: '' }, 0); }
@@ -972,6 +998,8 @@
         bosSatir: function () { return yorumSatir({ metin: '', kisi: '', yer: '', puan: 5 }, 0); }
       });
       kaydetBagla(kap, function () {
+        Store.site.bolumler.oneCikanlar.urunler = oneCikanTopla()
+          .map(function (x) { return x.id; }).filter(Boolean);
         Store.site.hero.istatistik = istTopla().filter(function (x) { return x.sayi; });
         Store.site.atolyeAdimlar = atolyeTopla().filter(function (x) { return x.baslik; });
         Store.site.yorumlar = yorumTopla().filter(function (x) { return x.metin; });

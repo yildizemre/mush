@@ -367,7 +367,11 @@
     },
 
     bolumler: {
-      oneCikanlar: { aktif: true, etiket: 'Seçkiler', baslik: 'Bu ay en çok ışık verenler', metin: '' },
+      oneCikanlar: {
+        aktif: true, etiket: 'Seçkiler', baslik: 'Bu ay en çok ışık verenler', metin: '',
+        // Gösterilecek gövdeler ve sırası — panelden değiştirilebilir
+        urunler: ['tutulma', 'aurora-ark', 'tespih', 'atlas-kol']
+      },
       koleksiyonlar: { aktif: true, etiket: 'Üç mimari dil', baslik: 'Koleksiyonlar', metin: 'Aynı atölye, üç ayrı mimari dil: Bauhaus’un işlevselliği, Art Deco’nun gösterişi ve vernaküler geleneğin el işçiliği.' },
       atolye: { aktif: true, etiket: 'Atölye', baslik: 'Beş adım, tek çatı, altmış iki gün', metin: 'Bir gövdenin ilk çiziminden kutuya girmesine kadar ortalama 62 gün geçiyor. Kalıp, kaynak, torna, finiş ve dikim — hepsi Bomonti’deki 180 m²’lik atölyede, aynı altı kişilik ekip tarafından yapılıyor. Fason üretim yaptırmıyoruz; bu yüzden koleksiyon yavaş büyüyor.' },
       yorumlar: { aktif: true, etiket: 'Müşteri değerlendirmeleri', baslik: 'Işığı evine alanlar ne diyor?', metin: 'Yorumların tamamı sipariş teslim edildikten sonra, doğrulanmış alıcılar tarafından yazıldı.' },

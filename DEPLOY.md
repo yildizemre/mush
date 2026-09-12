@@ -71,7 +71,25 @@ production uç noktasına ayarlandı. Entegrasyon uçtan uca çalışıyor.
 > "sızmış" sayılmalı. iyzico panelinden yeni bir çift üretip eskilerini iptal
 > edin; yenilerini yalnızca `.env` dosyasına ve Netlify ortam değişkenlerine girin.
 
-### 2.3 Netlify'a ortam değişkeni olarak girin
+### 2.3 Netlify'a girilecek üç ortam değişkeni
+
+Netlify → **Site configuration → Environment variables → Add a variable**.
+Üç değişkenin adı tam olarak şöyle olmalı:
+
+| Değişken adı | Değer |
+| --- | --- |
+| `IYZICO_API_KEY` | iyzico panelindeki **API Anahtarı** |
+| `IYZICO_SECRET_KEY` | iyzico panelindeki **Güvenlik Anahtarı** |
+| `IYZICO_BASE_URL` | canlı: `https://api.iyzipay.com` · test: `https://sandbox-api.iyzipay.com` |
+
+Değerler yerel makinede `.env` dosyasında duruyor (git'e girmez). Aynı üçünü
+Netlify'a da girmeniz gerekiyor, yoksa canlıda ödeme çalışmaz.
+
+Scope: **All scopes** / **All deploy contexts** seçin. Değişkenleri ekledikten
+sonra siteyi bir kez yeniden deploy edin (env değişiklikleri mevcut deploy'a
+uygulanmaz).
+
+
 
 Netlify → **Site configuration → Environment variables → Add a variable**:
 

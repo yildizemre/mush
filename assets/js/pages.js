@@ -116,8 +116,14 @@
     };
 
     if (bol('#bolumOne', B.oneCikanlar)) {
-      var one = Store.aktifUrunler().filter(function (u) { return u.oneCikan; }).slice(0, 4);
-      if (one.length < 4) one = Store.aktifUrunler().slice(0, 4);
+      // Panelde seçilen gövdeler, seçilen sırayla; boşsa oneCikan işaretlilere düşer
+      var secili = (B.oneCikanlar.urunler || [])
+        .map(function (id) { return Store.urunBul(id); })
+        .filter(function (u) { return u && u.aktif !== false; });
+      var one = secili.length
+        ? secili.slice(0, 4)
+        : Store.aktifUrunler().filter(function (u) { return u.oneCikan; }).slice(0, 4);
+      if (!one.length) one = Store.aktifUrunler().slice(0, 4);
       $('#oneBaslik').innerHTML = '<span class="eyebrow">' + kacir(B.oneCikanlar.etiket) + '</span>' +
         '<h2 class="h-lg">' + kacir(B.oneCikanlar.baslik) + '</h2>' +
         (B.oneCikanlar.metin ? '<p>' + kacir(B.oneCikanlar.metin) + '</p>' : '');
