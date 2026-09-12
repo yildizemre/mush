@@ -30,6 +30,8 @@
         kargo: h.kargo,
         toplam: h.toplam,
         kupon: Sepet.kupon ? Sepet.kupon.kod : null,
+        hediyeKod: h.hediyeKod || null,
+        hediyeDusen: h.hediye || 0,
         musteri: musteri,
         urunler: satirlar.map(function (x) {
           return {

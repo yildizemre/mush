@@ -138,6 +138,18 @@
             '<td class="sag">' + para(u.fiyat) + '</td></tr>';
         }).join('') + '</tbody></table></div></div>' : '') +
 
+      (Store.hediyeKartlari.length ? '<div class="ad-kart"><h3>Hediye kartları</h3>' +
+        '<p>Satılan kartlar ve kalan bakiyeleri.</p>' +
+        '<div class="ad-tablo-sarma"><table class="ad-tablo"><thead><tr>' +
+        '<th>Numara</th><th>Tarih</th><th>Alıcı</th><th>Tutar</th><th>Kalan</th><th>Durum</th></tr></thead><tbody>' +
+        Store.hediyeKartlari.slice(0, 12).map(function (k) {
+          return '<tr><td class="mono">' + kacir(k.kod) + '</td><td>' + tarih(k.tarih) + '</td>' +
+            '<td>' + kacir(k.alici || '—') + '</td><td>' + para(k.tutar) + '</td>' +
+            '<td><b>' + para(k.kalan) + '</b></td>' +
+            '<td><span class="ad-rozet ad-rozet--' + (k.kalan > 0 ? 'ok">Kullanılabilir' : 'kapali">Tükendi') +
+            '</span></td></tr>';
+        }).join('') + '</tbody></table></div></div>' : '') +
+
       '<div class="ad-kart"><h3>Canlı önizleme</h3><p>Yaptığınız değişiklikler kaydedildikten sonra burada görünür.</p>' +
         '<div class="ad-onizleme"><div class="ad-onizleme__bar"><i></i><i></i><i></i>' +
           '<span>index.html</span><a class="link-u" style="margin-left:auto;font-size:12px" href="index.html" target="_blank">Yeni sekmede aç</a></div>' +

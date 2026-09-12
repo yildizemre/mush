@@ -205,15 +205,48 @@
           '</div>' +
           '<div class="uretim__ekran">' +
             '<div class="uretim__bar"><span class="uretim__nokta"></span>CAM 02 · TEZGÂH B' +
-              '<span class="uretim__zaman mono">00:41:12</span></div>' +
-            '<div class="uretim__kare" data-medya="foto">' +
-              Medya.render(atolyeUrun, { glow: true, boyut: 'sahne' }) +
+              '<span class="uretim__zaman mono" id="uretimZaman">00:00</span></div>' +
+            '<div class="uretim__kare">' +
+              (uk.video
+                ? '<video id="uretimVideo" muted loop playsinline preload="metadata"' +
+                    (uk.poster ? ' poster="' + kacir(uk.poster) + '"' : '') + '>' +
+                    '<source src="' + kacir(uk.video) + '" type="video/mp4"></video>' +
+                    '<button class="uretim__oynat" id="uretimOynat" aria-label="Kaydı oynat">' +
+                      '<span class="uretim__oynat-ic">' + I.oynat + '</span>' +
+                      '<span class="uretim__oynat-yazi">Kaydı izle</span></button>'
+                : Medya.render(atolyeUrun, { glow: true, boyut: 'sahne' })) +
               '<span class="uretim__kayit">● REC</span>' +
             '</div>' +
             '<div class="uretim__alt"><span class="mono">SERİ NO · MSH-0247</span>' +
               '<span class="mono">24 SA YANIK TESTİ · GEÇTİ</span></div>' +
           '</div>' +
         '</div></div>';
+
+        // Video: görünür olunca oynat, tıklamayla durdur/başlat
+        var vid = $('#uretimVideo');
+        if (vid) {
+          var oynatBtn = $('#uretimOynat'), zaman = $('#uretimZaman');
+          function bicim(sn) {
+            sn = Math.floor(sn || 0);
+            return ('0' + Math.floor(sn / 60)).slice(-2) + ':' + ('0' + (sn % 60)).slice(-2);
+          }
+          vid.addEventListener('timeupdate', function () { zaman.textContent = bicim(vid.currentTime); });
+          function degistirOynat() {
+            if (vid.paused) { vid.play(); oynatBtn.classList.add('gizli'); }
+            else { vid.pause(); oynatBtn.classList.remove('gizli'); }
+          }
+          oynatBtn.addEventListener('click', degistirOynat);
+          vid.addEventListener('click', degistirOynat);
+
+          if ('IntersectionObserver' in window) {
+            new IntersectionObserver(function (g) {
+              g.forEach(function (x) {
+                if (x.isIntersecting) { vid.play().then(function () { oynatBtn.classList.add('gizli'); }).catch(function () {}); }
+                else { vid.pause(); }
+              });
+            }, { threshold: .35 }).observe(vid);
+          }
+        }
       }
     }
 
@@ -242,15 +275,30 @@
             '<ul class="uretim__liste" style="margin-top:16px">' + (hk.maddeler || []).map(function (m) {
               return '<li>' + I.tik + '<span>' + kacir(m) + '</span></li>';
             }).join('') + '</ul>' +
-            '<a class="btn btn--primary" style="margin-top:18px" href="' + A.waLink() + '" target="_blank" rel="noopener">' +
-              I.whatsapp + ' Hediye kartı al</a>' +
+            '<p class="hediye__teslim">' + I.posta + '<span>' + kacir(hk.teslimNotu || '') + '</span></p>' +
+            '<button class="btn btn--primary btn--lg" style="margin-top:16px" id="hediyeAl">' +
+              I.hediye + ' <span id="hediyeAlYazi">' + kacir(hk.btnAd || 'Hediye kartı al') + '</span>' +
+              ' · <b id="hediyeAlTutar">' + para(hk.tutarlar[1]) + '</b></button>' +
           '</div>' +
         '</div></div>';
 
+        var seciliTutar = hk.tutarlar[1];
         $('#hediyeTutarlar').addEventListener('click', function (e) {
           var c = e.target.closest('.chip'); if (!c) return;
           $$('.chip', this).forEach(function (x) { x.setAttribute('aria-pressed', String(x === c)); });
-          $('#hediyeTutar').textContent = para(+c.dataset.t);
+          seciliTutar = +c.dataset.t;
+          $('#hediyeTutar').textContent = para(seciliTutar);
+          $('#hediyeAlTutar').textContent = para(seciliTutar);
+        });
+
+        // Hediye kartını sepete ekleyip ödemeye yönlendir
+        $('#hediyeAl').addEventListener('click', function () {
+          if (!Sepet.ekle('hediye-' + seciliTutar, 1)) {
+            bildir('Bu tutarda hediye kartı tanımlı değil.', 'hata');
+            return;
+          }
+          bildir('Hediye kartı sepete eklendi — ödemeye yönlendiriliyorsunuz.');
+          setTimeout(function () { location.href = 'cart.html'; }, 700);
         });
       }
     }
@@ -621,6 +669,9 @@
           (h.indirim ? '<div class="sum-row"><span>İndirim (' + kacir(Sepet.kupon.kod) + ')</span>' +
             '<span style="color:var(--brand-deep);font-weight:600">-' + para(h.indirim) + '</span></div>' : '') +
           '<div class="sum-row"><span>Kargo</span><span>' + (h.kargo ? para(h.kargo) : 'Ücretsiz') + '</span></div>' +
+          (h.hediye ? '<div class="sum-row"><span>Hediye kartı <small class="mono">' + kacir(h.hediyeKod) + '</small>' +
+            ' <button class="x-btn" id="hediyeKaldir">kaldır</button></span>' +
+            '<span style="color:var(--brand-deep);font-weight:600">-' + para(h.hediye) + '</span></div>' : '') +
           '<div class="sum-row sum-row--total"><span>Toplam</span><b>' + para(h.toplam) + '</b></div>' +
           '<p class="mono" style="margin-top:12px;font-size:10.5px;color:var(--ink-3)">KDV dahil · ' +
             para(Store.site.kargo.ucretsizLimit) + ' üzeri kargo bedava</p>' +
@@ -630,6 +681,11 @@
       $('#kuponKod').addEventListener('keydown', function (e) { if (e.key === 'Enter') kuponDene(); });
       $$('#ozet .kupon-liste button').forEach(function (b) {
         b.addEventListener('click', function () { $('#kuponKod').value = b.dataset.kod; kuponDene(); });
+      });
+      var hk = $('#hediyeKaldir');
+      if (hk) hk.addEventListener('click', function () {
+        Sepet.hediyeKaldir();
+        bildir('Hediye kartı çıkarıldı.');
       });
     }
 
@@ -742,9 +798,19 @@
               : '<b>Demo mod.</b> Gerçek bir ödeme altyapısı bağlı değil, kart bilgisi istenmiyor ve ' +
                 'para çekilmiyor. iyzico anahtarları eklendiğinde bu adım gerçek ödemeye döner.') +
             '</span></div>' +
+          '<div class="hediye-giris">' +
+            '<label for="hediyeNo">' + I.hediye + ' Hediye kartı numaranız var mı?</label>' +
+            '<div class="promo">' +
+              '<input id="hediyeNo" placeholder="MSH-XXXX-XXXX-XXXX" ' +
+                'autocomplete="off" spellcheck="false" style="text-transform:uppercase">' +
+              '<button class="btn btn--ghost btn--sm" type="button" id="hediyeUygula">Kullan</button>' +
+            '</div>' +
+            '<small>Kart bakiyesi toplamdan düşülür; kalan varsa kartta kalır.</small>' +
+          '</div>' +
           '<div class="field" style="margin-top:18px;max-width:280px"><label for="taksit">Taksit</label>' +
-            '<select id="taksit"><option>Tek çekim</option><option>3 taksit</option><option>6 taksit</option>' +
-            '<option>9 taksit</option><option>12 taksit</option></select></div>' +
+            '<select id="taksit">' + (Store.site.odeme.taksitler || [1]).map(function (n) {
+              return '<option>' + (n === 1 ? 'Tek çekim' : n + ' taksit') + '</option>';
+            }).join('') + '</select></div>' +
           '<div class="buy-row" style="margin-top:20px">' +
             '<button class="btn btn--ghost" type="button" id="geriBtn">' + I.okGeri + ' Geri</button>' +
             '<button class="btn btn--primary" type="button" id="odeBtn">Siparişi tamamla · ' + para(Sepet.hesap().toplam) + '</button>' +
@@ -757,6 +823,16 @@
         });
         $('#geriBtn').addEventListener('click', function () { adim = 1; formCiz(); });
         $('#odeBtn').addEventListener('click', odemeYap);
+
+        function hediyeDene() {
+          var r = Sepet.hediyeUygula($('#hediyeNo').value);
+          bildir(r.mesaj, r.ok ? '' : 'hata');
+          if (r.ok) { formCiz(); ozetCiz(); }
+        }
+        $('#hediyeUygula').addEventListener('click', hediyeDene);
+        $('#hediyeNo').addEventListener('keydown', function (e) {
+          if (e.key === 'Enter') { e.preventDefault(); hediyeDene(); }
+        });
       }
     }
 
@@ -772,9 +848,31 @@
       };
 
       try {
+        // Hediye kartı tutarın tamamını karşıladıysa ödeme sağlayıcısına gitmeye gerek yok
+        if (Sepet.hesap().toplam <= 0) {
+          var sfr = Odeme.sepetiPaketle(musteri);
+          var kartlar0 = [];
+          Sepet.detayli().forEach(function (x) {
+            if (x.urun.hediyeKarti) {
+              for (var i = 0; i < x.adet; i++) {
+                kartlar0.push(Store.hediyeKartUret(x.urun.fiyat, musteri.eposta));
+              }
+            }
+          });
+          if (sfr.hediyeKod && sfr.hediyeDusen) Store.hediyeKartDus(sfr.hediyeKod, sfr.hediyeDusen);
+          var k0 = Odeme.siparisiKaydet(sfr, 'hazirlaniyor');
+          k0.hediyeKartlari = kartlar0;
+          k0.hediyeDusuldu = true;
+          Store.kaydet('siparis');
+          Sepet.bosalt();
+          onayEkrani(k0);
+          return;
+        }
+
         var sonuc = await Odeme.baslat(musteri);
 
         if (sonuc.durum === 'yonlendir') {
+          // Bakiye ve kart numarası ödeme onaylandıktan sonra işlenir (odeme-sonuc.html)
           Odeme.siparisiKaydet(sonuc.siparis, 'odemeBekliyor');
           try { localStorage.setItem('mush.bekleyenSiparis', sonuc.siparis.siparisNo); } catch (e) {}
           location.href = sonuc.url;
@@ -798,7 +896,19 @@
         }
 
         // demo
+        var h = Sepet.hesap();
+        var alinanKartlar = [];
+        Sepet.detayli().forEach(function (x) {
+          if (x.urun.hediyeKarti) {
+            for (var i = 0; i < x.adet; i++) {
+              alinanKartlar.push(Store.hediyeKartUret(x.urun.fiyat, musteri.eposta));
+            }
+          }
+        });
+        if (h.hediye && h.hediyeKod) Store.hediyeKartDus(h.hediyeKod, h.hediye);
+
         var kayit = Odeme.siparisiKaydet(sonuc.siparis, odemeYontemi === 'havale' ? 'odemeBekliyor' : 'hazirlaniyor');
+        kayit.hediyeKartlari = alinanKartlar;
         Sepet.bosalt();
         onayEkrani(kayit);
       } catch (e) {
@@ -819,6 +929,17 @@
           (kayit.durum === 'odemeBekliyor'
             ? '<div class="uyari uyari--bilgi" style="max-width:420px;margin:20px auto 0">Havale bilgileri ' +
               kacir(kayit.musteri.eposta) + ' adresine gönderildi.</div>' : '') +
+          ((kayit.hediyeKartlari && kayit.hediyeKartlari.length)
+            ? '<div class="onay-hediye">' +
+                '<span class="eyebrow">Hediye kartınız hazır</span>' +
+                (kayit.hediyeKartlari).map(function (k) {
+                  return '<div class="onay-hediye__kart">' +
+                    '<span class="onay-hediye__kod mono">' + kacir(k.kod) + '</span>' +
+                    '<span class="onay-hediye__tutar">' + para(k.tutar) + '</span></div>';
+                }).join('') +
+                '<p>Numara <b>' + kacir(kayit.musteri.eposta) + '</b> adresine de gönderildi. ' +
+                'Ödeme sırasında “Hediye kartı numaranız var mı?” alanına girerek kullanabilirsiniz. ' +
+                '24 ay geçerli, kısmi kullanıma açık.</p></div>' : '') +
           (MUSH_CONFIG.paymentMode !== 'iyzico'
             ? '<p class="mono" style="margin-top:14px;font-size:11px;color:var(--ink-3)">Demo: gerçek bir ödeme alınmadı.</p>' : '') +
           '<div class="buy-row" style="justify-content:center;margin-top:24px">' +
@@ -851,7 +972,7 @@
       $('#authKok').innerHTML =
         '<div class="auth-card">' +
           '<div class="center" style="margin-bottom:22px">' +
-            '<h1 class="h-md">' + (sekme === 'giris' ? 'Tekrar hoş geldin' : 'Mush’a katıl') + '</h1>' +
+            '<h1 class="h-md">' + (sekme === 'giris' ? 'Tekrar hoş geldin' : 'Muush’a katıl') + '</h1>' +
             '<p class="muted" style="margin-top:7px;font-size:14px">' +
               (sekme === 'giris' ? 'Siparişlerini ve favorilerini görmek için giriş yap.' : 'Hesap aç, siparişlerini takip et.') +
             '</p></div>' +
@@ -1073,8 +1194,34 @@
     try { no = localStorage.getItem('mush.bekleyenSiparis'); } catch (e) {}
     var basarili = q.get('status') !== 'failure';
 
+    var uretilen = [];
     if (basarili) {
-      if (no) Store.siparisDurum(no, 'hazirlaniyor');
+      if (no) {
+        Store.siparisDurum(no, 'hazirlaniyor');
+        var sip = Store.siparisler.filter(function (x) { return x.no === no; })[0];
+        if (sip) {
+          // Hediye kartı satın alındıysa numarayı şimdi üret (ödeme onaylandı)
+          if (!sip.hediyeKartlari) {
+            (sip.urunler || []).forEach(function (u) {
+              var p2 = Store.urunBul(u.id);
+              if (p2 && p2.hediyeKarti) {
+                for (var i = 0; i < u.adet; i++) {
+                  uretilen.push(Store.hediyeKartUret(p2.fiyat, sip.musteri && sip.musteri.eposta));
+                }
+              }
+            });
+            if (uretilen.length) { sip.hediyeKartlari = uretilen; Store.kaydet('siparis'); }
+          } else {
+            uretilen = sip.hediyeKartlari;
+          }
+          // Ödemede hediye kartı kullanıldıysa bakiyeyi düş
+          if (sip.hediyeKod && sip.hediyeDusen && !sip.hediyeDusuldu) {
+            Store.hediyeKartDus(sip.hediyeKod, sip.hediyeDusen);
+            sip.hediyeDusuldu = true;
+            Store.kaydet('siparis');
+          }
+        }
+      }
       Sepet.bosalt();
       try { localStorage.removeItem('mush.bekleyenSiparis'); } catch (e) {}
     }
@@ -1085,6 +1232,17 @@
         (no ? '<p class="order-no">' + kacir(no) + '</p>' : '') +
         '<p class="muted" style="margin-top:16px;max-width:44ch;margin-inline:auto">' +
           'Siparişin atölyeye düştü. Kargo takip kodunu e-posta ile göndereceğiz.</p>' +
+        (uretilen.length
+          ? '<div class="onay-hediye"><span class="eyebrow">Hediye kartınız hazır</span>' +
+            uretilen.map(function (k) {
+              return '<div class="onay-hediye__kart">' +
+                '<span class="onay-hediye__kod mono">' + kacir(k.kod) + '</span>' +
+                '<span class="onay-hediye__tutar">' + para(k.tutar) + '</span></div>';
+            }).join('') +
+            '<p>Numara e-posta adresinize de gönderildi. Ödeme sırasında ' +
+            '“Hediye kartı numaranız var mı?” alanına girerek kullanabilirsiniz. ' +
+            '24 ay geçerli, kısmi kullanıma açık.</p></div>'
+          : '') +
         '<div class="buy-row" style="justify-content:center;margin-top:22px">' +
           '<a class="btn btn--primary" href="shop.html">Alışverişe devam et</a>' +
           '<a class="btn btn--ghost" href="account.html">Siparişlerim</a></div></div>'

@@ -64,6 +64,7 @@
     arti: sv('<path d="M12 5v14M5 12h14"/>'),
     atolye: sv('<path d="M3 21h18M5 21V10l7-5 7 5v11"/><path d="M10 21v-6h4v6"/>'),
     kart: sv('<rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M2 10h20"/><path d="M6 15h4"/>'),
+    oynat: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.2v13.6a1 1 0 0 0 1.5.86l11-6.8a1 1 0 0 0 0-1.72l-11-6.8A1 1 0 0 0 8 5.2z"/></svg>',
     kopya: sv('<rect x="9" y="9" width="12" height="12" rx="2.4"/><path d="M6 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1"/>'),
     hediye: sv('<rect x="3" y="8" width="18" height="13" rx="2"/><path d="M3 12h18M12 8v13"/><path d="M12 8S10.5 3 8 4.5 9.5 8 12 8s4-.5 4-2.5S13.5 3 12 8z"/>')
   };
@@ -322,6 +323,8 @@
       '<div class="sum-row"><span>Ara toplam</span><span>' + para(h.araToplam) + '</span></div>' +
       (h.indirim ? '<div class="sum-row"><span>İndirim (' + kacir(Sepet.kupon.kod) + ')</span><span style="color:var(--brand-deep);font-weight:600">-' + para(h.indirim) + '</span></div>' : '') +
       '<div class="sum-row"><span>Kargo</span><span>' + (h.kargo ? para(h.kargo) : 'Ücretsiz') + '</span></div>' +
+      (h.hediye ? '<div class="sum-row"><span>Hediye kartı</span>' +
+        '<span style="color:var(--brand-deep);font-weight:600">-' + para(h.hediye) + '</span></div>' : '') +
       '<div class="sum-row sum-row--total"><span>Toplam</span><b>' + para(h.toplam) + '</b></div>' +
       '<a class="btn btn--primary btn--block" style="margin-top:14px" href="cart.html">Ödemeye geç ' + I.ok + '</a>' +
       '<button class="btn btn--ghost btn--block btn--sm" style="margin-top:7px" id="cekmeceBosalt">Sepeti boşalt</button>';

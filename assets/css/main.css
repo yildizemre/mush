@@ -1383,6 +1383,65 @@ html[data-theme="dark"] .iletisim__ikon--wa{ background:#10291b; border-color:#1
   .iletisim__form{ position:static; }
 }
 
+/* ========== ÜRETİM KAYDI VİDEOSU ========== */
+.uretim__kare video{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; display:block; cursor:pointer;
+}
+.uretim__oynat{
+  position:absolute; inset:0; z-index:2; display:grid; place-items:center; gap:12px;
+  align-content:center; background:rgba(12,9,8,.42); backdrop-filter:blur(2px);
+  color:#fff; transition:opacity .45s var(--ease), visibility .45s;
+}
+.uretim__oynat.gizli{ opacity:0; visibility:hidden; }
+.uretim__oynat-ic{
+  width:64px; height:64px; border-radius:50%; display:grid; place-items:center;
+  background:rgba(255,255,255,.16); border:1.5px solid rgba(255,255,255,.5);
+  backdrop-filter:blur(10px); transition:transform .4s var(--spring), background .3s;
+}
+.uretim__oynat-ic svg{ width:22px; height:22px; margin-left:3px; }
+.uretim__oynat:hover .uretim__oynat-ic{ transform:scale(1.08); background:rgba(255,255,255,.28); }
+.uretim__oynat-yazi{
+  font-family:var(--font-mono); font-size:10.5px; font-weight:700;
+  letter-spacing:.16em; text-transform:uppercase; color:rgba(255,255,255,.85);
+}
+
+/* ========== HEDİYE KARTI — ödeme ve onay ========== */
+.hediye__teslim{
+  display:grid; grid-template-columns:auto 1fr; gap:10px; margin-top:16px;
+  padding:12px 14px; border-radius:var(--r-sm);
+  background:var(--brand-tint); border:1px solid var(--m-100);
+  font-size:12.5px; color:var(--brand-deep); line-height:1.55;
+}
+.hediye__teslim svg{ width:16px; height:16px; margin-top:2px; }
+
+.hediye-giris{
+  margin-top:18px; padding:16px; border-radius:var(--r);
+  border:1px dashed var(--line-2); background:var(--bg-2);
+}
+.hediye-giris > label{
+  display:flex; align-items:center; gap:8px; font-size:13.5px; font-weight:650;
+}
+.hediye-giris > label svg{ width:17px; height:17px; color:var(--brand); }
+.hediye-giris .promo{ margin:11px 0 0; }
+.hediye-giris input{ font-family:var(--font-mono); letter-spacing:.1em; }
+.hediye-giris small{ display:block; margin-top:8px; font-size:11.5px; color:var(--ink-3); }
+
+.onay-hediye{
+  max-width:460px; margin:24px auto 0; padding:22px;
+  border:1px solid var(--line); border-radius:var(--r-lg); background:var(--surface);
+  box-shadow:var(--sh-1); text-align:left;
+}
+.onay-hediye__kart{
+  display:flex; align-items:center; justify-content:space-between; gap:14px;
+  margin-top:12px; padding:15px 17px; border-radius:var(--r-sm);
+  background:linear-gradient(135deg,#1b1418,#2a1a20 46%,var(--m-700));
+  color:#fff;
+}
+.onay-hediye__kod{ font-size:15px; font-weight:700; letter-spacing:.12em; }
+.onay-hediye__tutar{ font-family:var(--font-display); font-size:19px; font-weight:700; letter-spacing:-.02em; }
+.onay-hediye p{ margin-top:13px; font-size:12.5px; color:var(--ink-2); line-height:1.6; }
+
 /* ========== Reveal ========== */
 .reveal{ opacity:0; transform:translateY(22px); }
 .reveal.in{ opacity:1; transform:none; transition:opacity .8s var(--ease), transform .8s var(--ease-out); }

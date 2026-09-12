@@ -111,6 +111,44 @@
       this.kaydet('siparis');
     },
 
+    /* --- hediye kartları --- */
+    get hediyeKartlari() {
+      if (!veri.hediyeKartlari) veri.hediyeKartlari = [];
+      return veri.hediyeKartlari;
+    },
+    hediyeKartBul: function (kod) {
+      kod = (kod || '').trim().toUpperCase().replace(/[\s-]/g, '');
+      return this.hediyeKartlari.filter(function (k) {
+        return k.kod.replace(/-/g, '') === kod;
+      })[0] || null;
+    },
+    /* Satın alınan her hediye kartı için numara üretir */
+    hediyeKartUret: function (tutar, alici) {
+      function blok() {
+        var h = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789', o = '';
+        for (var i = 0; i < 4; i++) o += h[Math.floor(Math.random() * h.length)];
+        return o;
+      }
+      var kod = 'MSH-' + blok() + '-' + blok() + '-' + blok();
+      var kart = {
+        kod: kod, tutar: tutar, kalan: tutar,
+        tarih: new Date().toISOString(),
+        alici: alici || '', aktif: true
+      };
+      this.hediyeKartlari.unshift(kart);
+      this.kaydet('hediye');
+      return kart;
+    },
+    hediyeKartDus: function (kod, tutar) {
+      var k = this.hediyeKartBul(kod);
+      if (!k) return 0;
+      var dusen = Math.min(k.kalan, tutar);
+      k.kalan -= dusen;
+      if (k.kalan <= 0) k.aktif = false;
+      this.kaydet('hediye');
+      return dusen;
+    },
+
     /* --- yedek --- */
     disaAktar: function () { return JSON.stringify(veri, null, 2); },
     iceAktar: function (metin) {
@@ -158,6 +196,7 @@
     bosalt: function () {
       this.satirlar = [];
       this.kuponKaldir();
+      this.hediyeKaldir();
       this.kaydet();
     },
     detayli: function () {
@@ -187,6 +226,28 @@
       yaz('mush.kupon.v2', null);
     },
 
+    /* --- Hediye kartı --- */
+    hediye: oku('mush.hediye.v2', null),
+
+    hediyeUygula: function (kod) {
+      var k = Store.hediyeKartBul(kod);
+      if (!k) return { ok: false, mesaj: 'Bu hediye kartı numarası bulunamadı.' };
+      if (!k.aktif || k.kalan <= 0) return { ok: false, mesaj: 'Bu kartın bakiyesi tükenmiş.' };
+      // Hediye kartı satın alırken başka bir hediye kartı kullanılamaz
+      if (this.detayli().some(function (x) { return x.urun.hediyeKarti; })) {
+        return { ok: false, mesaj: 'Hediye kartı alırken başka bir hediye kartı kullanılamaz.' };
+      }
+      this.hediye = { kod: k.kod, kalan: k.kalan };
+      yaz('mush.hediye.v2', this.hediye);
+      this.kaydet();
+      return { ok: true, mesaj: 'Hediye kartı uygulandı: ' + k.kod, kart: k };
+    },
+    hediyeKaldir: function () {
+      this.hediye = null;
+      yaz('mush.hediye.v2', null);
+      this.kaydet();
+    },
+
     hesap: function () {
       var kargoAyar = Store.site.kargo;
       var araToplam = this.detayli().reduce(function (a, x) { return a + x.tutar; }, 0);
@@ -202,10 +263,18 @@
       var kargo = 0;
       if (araToplam > 0 && !kargoBedava && netTutar < kargoAyar.ucretsizLimit) kargo = kargoAyar.ucret;
 
+      var odenecek = Math.max(0, netTutar + kargo);
+      var hediyeDusen = 0;
+      if (this.hediye && this.hediye.kalan > 0) {
+        hediyeDusen = Math.min(this.hediye.kalan, odenecek);
+      }
+
       return {
         araToplam: araToplam, indirim: indirim, kargo: kargo,
         kargoBedava: kargoBedava || (araToplam > 0 && netTutar >= kargoAyar.ucretsizLimit),
-        toplam: Math.max(0, netTutar + kargo)
+        hediye: hediyeDusen,
+        hediyeKod: hediyeDusen ? this.hediye.kod : null,
+        toplam: Math.max(0, odenecek - hediyeDusen)
       };
     }
   };

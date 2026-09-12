@@ -24,3 +24,7 @@ product/class1/dark.jpg
 # macOS artıkları (iyzico logo paketi vb.)
 ._*
 .DS_Store
+
+# Ham/orijinal medya (web surumleri yayinlaniyor)
+assets/muushyenilogo*.png
+assets/uretim.mp4

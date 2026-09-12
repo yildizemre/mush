@@ -270,9 +270,29 @@
     }
   ];
 
+  // ---- Hediye kartları: mağazada listelenmez (aktif:false), sepete eklenir ----
+  [5000, 10000, 15000, 25000, 50000].forEach(function (t) {
+    URUNLER.push({
+      id: 'hediye-' + t,
+      ad: 'Hediye Kartı · ' + t.toLocaleString('tr-TR') + ' ₺',
+      altbaslik: 'Dijital hediye kartı — e-posta ile teslim',
+      fiyat: t, type: 'cone', koleksiyon: 'modern',
+      renk: 'kirmizi', renkAd: 'Dijital kart',
+      aktif: false, sanal: true, hediyeKarti: true,
+      palette: { metal: '#e81a4a', shade: '#ff6c8c', glow: '#ffb347' },
+      malzeme: 'Dijital ürün — kargo gönderilmez',
+      ampul: '—', yukseklik: '—', abajur: '—', agirlik: '0 kg',
+      puan: 5, yorum: 0, stok: 999,
+      aciklama: 'Tutarı ' + t.toLocaleString('tr-TR') + ' ₺ olan dijital hediye kartı. ' +
+        'Ödeme tamamlandığında kart numarası ekranda gösterilir ve alıcının e-posta ' +
+        'adresine gönderilir. 24 ay geçerlidir, kısmi kullanıma açıktır.',
+      detay: ['E-posta ile anında teslim', '24 ay geçerli', 'Kısmi kullanıma açık', 'Kargo gönderilmez']
+    });
+  });
+
   var SITE = {
     marka: {
-      ad: 'Mush',
+      ad: 'Muush',
       slogan: 'Aydınlatma Atölyesi',
       logo: 'assets/logo.png',       // acik tema
       logoKoyu: 'assets/logo-beyaz.png',  // koyu tema  // boşsa çizilmiş ışık simgesi + site adı kullanılır
@@ -370,6 +390,8 @@
     // Üretim kaydı — zengin marka dokunuşu
     uretimKaydi: {
       aktif: true,
+      video: 'assets/uretim-web.mp4',
+      poster: 'assets/uretim-poster.jpg',
       etiket: 'Üretim kaydı',
       baslik: 'Sizin gövdenizin nasıl yapıldığını izleyin',
       metin: 'Sipariş numaranız atölyeye düştüğü andan kutuya girdiği ana kadar tezgâh üstü kameralar kayıtta. Teslimattan sonra size özel bir bağlantı gönderiyoruz: kendi lambaderinizin bükülme, zımpara, dikim ve 24 saatlik yanık testini hızlandırılmış olarak izleyebiliyorsunuz. Kayıt 12 ay saklanıyor, sonra siliniyor.',
@@ -388,6 +410,8 @@
       baslik: 'Işığı siz seçmeyin, o seçsin',
       metin: 'Lambader hediye etmek risklidir — odayı bilmeyen kimse doğru gövdeyi seçemez. Hediye kartı bu işi alıcıya bırakıyor: tutarı siz belirliyorsunuz, kart e-posta ile anında gidiyor, 24 ay geçerli.',
       tutarlar: [5000, 10000, 15000, 25000, 50000],
+      btnAd: 'Hediye kartı al',
+      teslimNotu: 'Ödeme tamamlandığında kart numarası hem ekranda görünür hem de alıcının e-posta adresine gönderilir.',
       maddeler: [
         'E-posta ile anında teslim, dilerseniz ileri tarihli gönderim',
         '24 ay geçerli, kısmi kullanıma açık',
@@ -517,7 +541,7 @@
       etiket: 'Hakkımızda',
       baslik: 'Bir odayı değiştiren şey mobilya değil,',
       baslikVurgu: 'ışığın düştüğü yerdir.',
-      girisMetni: 'Mush 2016’da Bomonti’de, üç kişilik bir atölyede başladı. Amacımız basitti: Türkiye’de üretilmiş, ithal muadillerine baktığınızda “bu daha iyi” diyeceğiniz bir lambader yapmak. Bugün on dört gövde tasarımımız var, hepsi hâlâ aynı çatı altında elde montajlanıyor.',
+      girisMetni: 'Muush 2016’da Bomonti’de, üç kişilik bir atölyede başladı. Amacımız basitti: Türkiye’de üretilmiş, ithal muadillerine baktığınızda “bu daha iyi” diyeceğiniz bir lambader yapmak. Bugün on dört gövde tasarımımız var, hepsi hâlâ aynı çatı altında elde montajlanıyor.',
 
       rakamlar: [
         { sayi: '2016', etiket: 'Kuruluş', aciklama: 'Bomonti’de 40 m²’lik bir atölyede' },
@@ -751,7 +775,7 @@
     },
 
     seo: {
-      baslik: 'Mush — Modern Lambader Atölyesi',
+      baslik: 'Muush — Modern Lambader Atölyesi',
       aciklama: 'İstanbul’da tasarlanan modern lambaderler. Ark, küre, tripod ve heykel serisi aydınlatmalar.'
     }
   };
