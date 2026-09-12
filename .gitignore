@@ -1,0 +1,26 @@
+# Ortam değişkenleri — ASLA commit edilmez (iyzico secret key burada)
+.env
+.env.*
+!.env.example
+
+# Netlify
+.netlify/
+
+# Sistem
+node_modules/
+.DS_Store
+Thumbs.db
+
+# Geçici / türetilmiş
+_gorsel_haritasi.json
+assets/logo-ham.png
+assets/logo-beyaz-ham.png
+
+# Orijinal büyük görseller (WebP sürümleri yayınlanıyor)
+product/**/dark.png
+product/**/light.png
+product/class1/dark.jpg
+
+# macOS artıkları (iyzico logo paketi vb.)
+._*
+.DS_Store

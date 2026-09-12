@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /yonetim
+Disallow: /odeme-sonuc.html

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tüm Lambaderler — Mush</title>
+<meta name="description" content="Mush lambader koleksiyonu: ark, küre, tripod, silindir ve heykel gövdeler. Filtrele, ışığını yak, seç.">
+<meta name="theme-color" content="#ff3962">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M11 17h18l-4.5-10h-9z' fill='%23ff3962'/%3E%3Cpath d='M20 17v15M13 34h14' stroke='%23e81a4a' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Inter:wght@400;500;600;650&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body data-page="shop">
+
+<header class="site-head"></header>
+
+<main>
+  <section class="page-head">
+    <div class="wrap">
+      <p class="crumbs"><a href="index.html">Ana sayfa</a> / <span>Lambaderler</span></p>
+      <h1 class="h-lg" id="shopBaslik">Tüm Lambaderler</h1>
+      <p class="muted" style="margin-top:12px;max-width:48ch" id="shopOzet"></p>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="shop-layout">
+      <aside class="filters" id="filtreler" aria-label="Filtreler"></aside>
+      <div>
+        <div class="shop-bar">
+          <span class="shop-bar__count" id="urunSayi"></span>
+          <button class="btn btn--ghost btn--sm filter-toggle" id="filtreAc">Filtreler</button>
+          <label class="sr" for="siralaSec">Sıralama</label>
+          <select class="select" id="siralaSec">
+            <option value="onerilen">Önerilen</option>
+            <option value="artan">Fiyat: artan</option>
+            <option value="azalan">Fiyat: azalan</option>
+            <option value="puan">En yüksek puan</option>
+          </select>
+        </div>
+        <div class="grid-products" id="urunler"></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-foot"></footer>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/seed.js"></script>
+<script src="assets/js/store.js"></script>
+<script src="assets/js/lamp-art.js"></script>
+<script src="assets/js/media.js"></script>
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/payment.js"></script>
+<script src="assets/js/pages.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

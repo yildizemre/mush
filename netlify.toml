@@ -1,0 +1,64 @@
+# ============================================================
+# Netlify yapılandırması — Mush
+# Statik site + iyzico için serverless fonksiyonlar
+# ============================================================
+
+[build]
+  publish = "."
+  functions = "netlify/functions"
+  # Derleme adımı yok: dosyalar olduğu gibi yayınlanır.
+  command = ""
+
+[functions]
+  node_bundler = "esbuild"
+
+# Sayfalar .html uzantısı olmadan da açılabilsin (/shop → /shop.html)
+[[redirects]]
+  from = "/shop"
+  to = "/shop.html"
+  status = 200
+
+[[redirects]]
+  from = "/urun"
+  to = "/product.html"
+  status = 200
+
+[[redirects]]
+  from = "/sepet"
+  to = "/cart.html"
+  status = 200
+
+[[redirects]]
+  from = "/giris"
+  to = "/login.html"
+  status = 200
+
+[[redirects]]
+  from = "/hesabim"
+  to = "/account.html"
+  status = 200
+
+[[redirects]]
+  from = "/yonetim"
+  to = "/admin.html"
+  status = 200
+
+# --- Güvenlik başlıkları ---
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+# Yönetim paneli arama motorlarına kapalı
+[[headers]]
+  for = "/admin.html"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
