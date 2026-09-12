@@ -1,13 +1,15 @@
 # ============================================================
-# Netlify yapılandırması — Mush
+# Netlify yapılandırması — Muush
 # Statik site + iyzico için serverless fonksiyonlar
+#
+# Derleme adımı YOK. "command" anahtarı bilinçli olarak hiç yazılmadı:
+# boş string ("") vermek Netlify'da build adımını hatalı yorumlatabiliyor,
+# anahtarın hiç olmaması "yayınlanacak dosyaları olduğu gibi al" demek.
 # ============================================================
 
 [build]
   publish = "."
   functions = "netlify/functions"
-  # Derleme adımı yok: dosyalar olduğu gibi yayınlanır.
-  command = ""
 
 [functions]
   node_bundler = "esbuild"

@@ -71,12 +71,13 @@
 
       // Tek bir galeri karesi istendi
       if (opts.kare && opts.kare.tip === 'foto') {
-        return '<span class="urun-medya" data-tip="foto-tek"' + zemin + '>' +
+        return '<span class="urun-medya" data-tip="foto-tek" data-urun="' + kacir(u.id) + '"' + zemin + '>' +
           '<img src="' + yol(opts.kare.src) + '" alt="' + alt + ' yakın çekim"' + tembel + '></span>';
       }
 
       // Açık / kapalı çifti — CSS ile çapraz geçiş
-      return '<span class="urun-medya" data-tip="foto" data-isik="' + (on ? 'acik' : 'kapali') + '"' + zemin + '>' +
+      return '<span class="urun-medya" data-tip="foto" data-urun="' + kacir(u.id) +
+        '" data-isik="' + (on ? 'acik' : 'kapali') + '"' + zemin + '>' +
         '<img class="urun-medya__kapali" src="' + yol(G.kapali) + '" alt="' + alt + ' (ışık kapalı)"' + tembel + '>' +
         '<img class="urun-medya__acik" src="' + yol(G.acik || G.kapali) + '" alt="' + alt + ' (ışık açık)"' + tembel + '>' +
         '</span>';
@@ -94,6 +95,23 @@
       m.outerHTML = this.render(u, yeniOpts);
     }
   };
+
+  /* Fotoğraf yüklenemezse (404, ağ hatası) SVG çizime düş — kırık görsel gösterme */
+  document.addEventListener('error', function (e) {
+    var img = e.target;
+    if (!img || img.tagName !== 'IMG') return;
+    var kap = img.closest ? img.closest('.urun-medya') : null;
+    if (!kap || kap.dataset.yedek === '1') return;
+
+    var u = g.Store && Store.urunBul ? Store.urunBul(kap.dataset.urun) : null;
+    console.warn('[Muush] Ürün fotoğrafı yüklenemedi, çizime düşüldü:', img.getAttribute('src'));
+    if (!u) return;
+
+    kap.dataset.yedek = '1';
+    kap.dataset.tip = 'svg';
+    kap.removeAttribute('style');
+    kap.innerHTML = LampArt.render(u, { glow: kap.dataset.isik !== 'kapali' });
+  }, true);   // capture: img error olayı yukarı baloncuklanmaz
 
   g.Medya = Medya;
 })(window);
