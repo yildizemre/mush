@@ -231,18 +231,23 @@
             return ('0' + Math.floor(sn / 60)).slice(-2) + ':' + ('0' + (sn % 60)).slice(-2);
           }
           vid.addEventListener('timeupdate', function () { zaman.textContent = bicim(vid.currentTime); });
+          // Düğme durumu videonun kendi olaylarından türetilir — her zaman doğru kalır
+          vid.addEventListener('play', function () { oynatBtn.classList.add('gizli'); });
+          vid.addEventListener('pause', function () { oynatBtn.classList.remove('gizli'); });
+
           function degistirOynat() {
-            if (vid.paused) { vid.play(); oynatBtn.classList.add('gizli'); }
-            else { vid.pause(); oynatBtn.classList.remove('gizli'); }
+            if (vid.paused) vid.play().catch(function () {});
+            else vid.pause();
           }
           oynatBtn.addEventListener('click', degistirOynat);
           vid.addEventListener('click', degistirOynat);
 
+          // Görünür olunca oynat, ekrandan çıkınca duraklat (veri harcamasın)
           if ('IntersectionObserver' in window) {
             new IntersectionObserver(function (g) {
               g.forEach(function (x) {
-                if (x.isIntersecting) { vid.play().then(function () { oynatBtn.classList.add('gizli'); }).catch(function () {}); }
-                else { vid.pause(); }
+                if (x.isIntersecting) vid.play().catch(function () {});
+                else vid.pause();
               });
             }, { threshold: .35 }).observe(vid);
           }
