@@ -64,6 +64,7 @@
     arti: sv('<path d="M12 5v14M5 12h14"/>'),
     atolye: sv('<path d="M3 21h18M5 21V10l7-5 7 5v11"/><path d="M10 21v-6h4v6"/>'),
     kart: sv('<rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M2 10h20"/><path d="M6 15h4"/>'),
+    kopya: sv('<rect x="9" y="9" width="12" height="12" rx="2.4"/><path d="M6 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1"/>'),
     hediye: sv('<rect x="3" y="8" width="18" height="13" rx="2"/><path d="M3 12h18M12 8v13"/><path d="M12 8S10.5 3 8 4.5 9.5 8 12 8s4-.5 4-2.5S13.5 3 12 8z"/>')
   };
 
@@ -417,50 +418,77 @@
     var k = Store.site.karsilama;
     if (!k || !k.aktif) return;
     if (document.body.dataset.page === 'admin') return;
-    try { if (localStorage.getItem('mush.karsilama.gorüldü')) return; } catch (e) {}
+    try { if (localStorage.getItem('mush.karsilama.v2')) return; } catch (e) {}
+
+    var urun = Store.urunBul(k.urunId) || Store.aktifUrunler()[0];
 
     setTimeout(function () {
       var scrim = document.createElement('div');
-      scrim.className = 'karsilama-scrim';
+      scrim.className = 'kars-scrim';
       scrim.innerHTML =
-        '<div class="karsilama" role="dialog" aria-modal="true" aria-label="Hoş geldin indirimi">' +
-          '<button class="karsilama__x" aria-label="Kapat">' + I.kapat + '</button>' +
-          '<div class="karsilama__gorsel">' +
-            Medya.render(Store.aktifUrunler()[0], { glow: true, boyut: 'sahne' }) + '</div>' +
-          '<div class="karsilama__ic">' +
-            '<span class="eyebrow">Hoş geldiniz</span>' +
-            '<h3>' + kacir(k.baslik) + '</h3>' +
+        '<div class="kars" role="dialog" aria-modal="true" aria-labelledby="karsBaslik">' +
+
+          // Tam kanamalı fotoğraf + sıcak ışık perdesi
+          '<div class="kars__zemin" data-isik="acik">' +
+            Medya.render(urun, { glow: true, boyut: 'sahne' }) +
+          '</div>' +
+          '<div class="kars__perde"></div>' +
+
+          '<button class="kars__x" aria-label="Kapat">' + I.kapat + '</button>' +
+
+          '<div class="kars__ic">' +
+            '<span class="kars__etiket">' + kacir(k.etiket) + '</span>' +
+
+            '<div class="kars__oran"><span>' + kacir(k.oran) + '</span>' +
+              '<em>indirim</em></div>' +
+
+            '<h3 id="karsBaslik">' + kacir(k.baslik) + '</h3>' +
             '<p>' + kacir(k.metin) + '</p>' +
-            '<button class="karsilama__kod" id="karsilamaKod" title="Kopyalamak için tıklayın">' +
-              '<span>' + kacir(k.kod) + '</span><small>kopyala</small></button>' +
-            '<a class="btn btn--primary btn--block" href="' + kacir(k.btnYol) + '">' +
-              kacir(k.btnAd) + ' ' + I.ok + '</a>' +
-            '<button class="karsilama__gec">' + kacir(k.kapatYazi) + '</button>' +
+
+            '<button class="kars__kod" id="karsKod">' +
+              '<span class="kars__kod-et">Kupon kodu</span>' +
+              '<span class="kars__kod-no">' + kacir(k.kod) + '</span>' +
+              '<span class="kars__kod-ikon" aria-hidden="true">' + I.kopya + '</span>' +
+              '<span class="sr">Kodu kopyala</span>' +
+            '</button>' +
+
+            '<a class="kars__btn" href="' + kacir(k.btnYol) + '">' +
+              '<span>' + kacir(k.btnAd) + '</span>' + I.ok + '</a>' +
+
+            '<button class="kars__gec">' + kacir(k.kapatYazi) + '</button>' +
           '</div>' +
         '</div>';
+
       document.body.appendChild(scrim);
+      document.body.style.overflow = 'hidden';
       requestAnimationFrame(function () { scrim.classList.add('on'); });
 
       function kapat() {
         scrim.classList.remove('on');
-        try { localStorage.setItem('mush.karsilama.gorüldü', '1'); } catch (e) {}
-        setTimeout(function () { scrim.remove(); }, 380);
+        document.body.style.overflow = '';
+        try { localStorage.setItem('mush.karsilama.v2', '1'); } catch (e) {}
+        setTimeout(function () { scrim.remove(); }, 420);
+        document.removeEventListener('keydown', esc);
       }
-      $('.karsilama__x', scrim).addEventListener('click', kapat);
-      $('.karsilama__gec', scrim).addEventListener('click', kapat);
-      scrim.addEventListener('click', function (e) { if (e.target === scrim) kapat(); });
-      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') kapat(); });
+      function esc(e) { if (e.key === 'Escape') kapat(); }
 
-      $('#karsilamaKod', scrim).addEventListener('click', async function () {
-        try {
-          await navigator.clipboard.writeText(k.kod);
-          this.querySelector('small').textContent = 'kopyalandı ✓';
-        } catch (e) {
-          this.querySelector('small').textContent = k.kod;
-        }
+      $('.kars__x', scrim).addEventListener('click', kapat);
+      $('.kars__gec', scrim).addEventListener('click', kapat);
+      scrim.addEventListener('click', function (e) { if (e.target === scrim) kapat(); });
+      document.addEventListener('keydown', esc);
+
+      var kodBtn = $('#karsKod', scrim);
+      kodBtn.addEventListener('click', async function () {
+        var ok = false;
+        try { await navigator.clipboard.writeText(k.kod); ok = true; } catch (e) {}
         Sepet.kuponUygula(k.kod);
+        kodBtn.classList.add('kopyalandi');
+        $('.kars__kod-et', kodBtn).textContent = ok ? 'Kopyalandı ve sepete uygulandı' : 'Sepete uygulandı';
+        $('.kars__kod-ikon', kodBtn).innerHTML = I.tik;
       });
-    }, k.gecikmeMs || 1400);
+
+      setTimeout(function () { $('.kars__x', scrim).focus(); }, 420);
+    }, k.gecikmeMs || 1600);
   }
 
   /* ---------------- Taksit ---------------- */

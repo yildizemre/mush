@@ -486,13 +486,16 @@
     // Siteye ilk gelene açılan indirim kutusu
     karsilama: {
       aktif: true,
-      baslik: 'İlk siparişinize %10',
-      metin: 'Aşağıdaki kodu sepette kullanın — koleksiyondaki bütün gövdelerde geçerli.',
+      etiket: 'Atölyeye hoş geldiniz',
+      oran: '%10',
+      baslik: 'İlk gövdeniz indirimli',
+      metin: 'Kodu sepette kullanın. On dört gövdenin tamamında geçerli, son kullanma tarihi yok.',
       kod: 'MERHABA',
       kapatYazi: 'Şimdi değil',
       btnAd: 'Koleksiyona göz at',
       btnYol: 'shop.html',
-      gecikmeMs: 1400
+      urunId: 'aurora-ark',
+      gecikmeMs: 1600
     },
 
     kargo: {
