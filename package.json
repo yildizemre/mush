@@ -1,0 +1,16 @@
+{
+  "name": "mush",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Mush — lambader e-ticaret sitesi. Derleme adımı yok; statik dosyalar + Netlify Functions (iyzico).",
+  "scripts": {
+    "dev": "node dev-server.mjs",
+    "start": "node dev-server.mjs",
+    "netlify": "netlify dev",
+    "kontrol": "node --check assets/js/app.js && node --check assets/js/pages.js && node --check assets/js/seed.js && node --check assets/js/store.js && node --check assets/js/admin.js && node --check assets/js/auth.js && node --check assets/js/payment.js && node --check assets/js/media.js && node --check assets/js/lamp-art.js && node --check assets/js/config.js && echo Tum JS dosyalari temiz"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "UNLICENSED"
+}

@@ -6,8 +6,23 @@ dosyaları açmanız yeterli. Canlıya alma adımları: **[DEPLOY.md](DEPLOY.md)
 ## Çalıştırma
 
 ```bash
+npm run dev
+```
+
+`npm install` gerekmiyor — projenin hiç bağımlılığı yok. Doğrudan da
+çalıştırabilirsiniz:
+
+```bash
 node dev-server.mjs
 ```
+
+| Komut | Ne yapar |
+| --- | --- |
+| `npm run dev` | Yerel sunucu + Netlify Functions (iyzico dahil), port 4173 |
+| `npm run netlify` | Netlify CLI ile çalıştırır (`npm i -g netlify-cli` gerekir) |
+| `npm run kontrol` | Tüm JS dosyalarının sözdizimini denetler |
+
+Farklı port: `PORT=4199 npm run dev`
 
 Sonra `http://localhost:4173`. (`index.html`'e çift tıklamak da çalışır.)
 
