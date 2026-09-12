@@ -13,17 +13,17 @@
       renk: 'pirinc', renkAd: 'Eskitme pirinç', etiket: 'En çok satan', oneCikan: true, aktif: true,
       palette: { metal: '#c2a06a', shade: '#f0e6d2', glow: '#ffbf5e' },
       gorseller: {
-        kapali: 'product/class1/light.jpg',
-        acik: 'product/class1/dark.webp',
-        zeminKapali: '#e2e2de',
-        zeminAcik: '#332c25',
+        kapali: 'product/class1/kapali.webp',
+        acik: 'product/class1/acik.webp',
+        zeminKapali: '#e1e1dd',
+        zeminAcik: '#3d3328',
         galeri: [
-          'product/class1/urunozellik.webp',
-          'product/class1/urunyakin.webp',
-          'product/class1/urunyakin2.webp',
-          'product/class1/urunyakin3.webp',
-          'product/class1/urunyakin4.webp',
-          'product/class1/urunyakin5.webp'
+          'product/class1/norm-urunozellik.webp',
+          'product/class1/norm-urunyakin.webp',
+          'product/class1/norm-urunyakin2.webp',
+          'product/class1/norm-urunyakin3.webp',
+          'product/class1/norm-urunyakin4.webp',
+          'product/class1/norm-urunyakin5.webp'
         ]
       },
       malzeme: 'Eskitme pirinç gövde, dökme disk abajur, kurşun kristal bilezikler',
@@ -38,10 +38,10 @@
       renk: 'pirinc', renkAd: 'Parlak pirinç / Carrara mermer', etiket: 'İndirim', oneCikan: true, aktif: true,
       palette: { metal: '#c79a4b', shade: '#f3e6cd', glow: '#ffb347' },
       gorseller: {
-        kapali: 'product/class2/light.webp',
-        acik: 'product/class2/dark.webp',
+        kapali: 'product/class2/kapali.webp',
+        acik: 'product/class2/acik.webp',
         zeminKapali: '#f5f5f2',
-        zeminAcik: '#25221f',
+        zeminAcik: '#2d2722',
         galeri: [
           'product/class2/urunyakin1.webp'
         ]
@@ -58,10 +58,10 @@
       renk: 'sari', renkAd: 'Hardal sarısı', etiket: 'Yeni', oneCikan: true, aktif: true,
       palette: { metal: '#e8a81c', shade: '#ffd24a', glow: '#ffc247' },
       gorseller: {
-        kapali: 'product/class3/light.webp',
-        acik: 'product/class3/dark.webp',
+        kapali: 'product/class3/kapali.webp',
+        acik: 'product/class3/acik.webp',
         zeminKapali: '#f5f5f1',
-        zeminAcik: '#1d1b18',
+        zeminAcik: '#221d19',
         galeri: []
       },
       malzeme: 'Toz boyalı çelik gövde, emaye kaplı metal abajurlar, siyah eklem detayları',
@@ -76,10 +76,10 @@
       renk: 'kirmizi', renkAd: 'Sinyal kırmızısı', aktif: true,
       palette: { metal: '#c1352b', shade: '#e0574c', glow: '#ffb347' },
       gorseller: {
-        kapali: 'product/class4/light.webp',
-        acik: 'product/class4/dark.webp',
+        kapali: 'product/class4/kapali.webp',
+        acik: 'product/class4/acik.webp',
         zeminKapali: '#f1f1f3',
-        zeminAcik: '#1c1a19',
+        zeminAcik: '#372c22',
         galeri: []
       },
       malzeme: 'Tek renk toz boyalı çelik; gövde, abajur ve taban aynı finiş',
@@ -94,10 +94,10 @@
       renk: 'yesil', renkAd: 'Yeşil / sarı, gri gövde', oneCikan: true, aktif: true,
       palette: { metal: '#9aa39a', shade: '#4f9c6d', glow: '#ffc46b' },
       gorseller: {
-        kapali: 'product/class5/light.webp',
-        acik: 'product/class5/dark.webp',
+        kapali: 'product/class5/kapali.webp',
+        acik: 'product/class5/acik.webp',
         zeminKapali: '#ffffff',
-        zeminAcik: '#1c1815',
+        zeminAcik: '#3d2d1f',
         galeri: []
       },
       malzeme: 'Anodize alüminyum gövde, iki parça boyalı alüminyum koni abajur',
@@ -112,10 +112,10 @@
       renk: 'yesil', renkAd: 'Zeytin yeşili / dövme demir', etiket: 'Atölye serisi', oneCikan: true, aktif: true,
       palette: { metal: '#3b3b3b', shade: '#8a8f5c', glow: '#ffbf5e' },
       gorseller: {
-        kapali: 'product/class6/light.webp',
-        acik: 'product/class6/dark.webp',
-        zeminKapali: '#dcdbd9',
-        zeminAcik: '#2c241e',
+        kapali: 'product/class6/kapali.webp',
+        acik: 'product/class6/acik.webp',
+        zeminKapali: '#cccac8',
+        zeminAcik: '#3e3024',
         galeri: []
       },
       malzeme: 'El pileli keten halka abajur, elde dövülmüş demir üçayak, pirinç ışık kolu',
@@ -130,10 +130,10 @@
       renk: 'beyaz', renkAd: 'Buzlu beyaz / krom', etiket: 'Sınırlı', oneCikan: true, aktif: true,
       palette: { metal: '#b9bdc2', shade: '#f7f8fa', glow: '#fff0d0' },
       gorseller: {
-        kapali: 'product/class7/light.webp',
-        acik: 'product/class7/dark.webp',
+        kapali: 'product/class7/kapali.webp',
+        acik: 'product/class7/acik.webp',
         zeminKapali: '#ffffff',
-        zeminAcik: '#1f1b18',
+        zeminAcik: '#261f19',
         galeri: []
       },
       malzeme: 'Enjeksiyon kalıp opal akrilik yapraklar, krom çelik taban, entegre LED kolon',
@@ -148,10 +148,10 @@
       renk: 'beyaz', renkAd: 'Mat beyaz / pirinç detay', aktif: true,
       palette: { metal: '#c9cbcc', shade: '#f8f8f6', glow: '#ffd79a' },
       gorseller: {
-        kapali: 'product/class8/light.webp',
-        acik: 'product/class8/dark.webp',
-        zeminKapali: '#c1c2c1',
-        zeminAcik: '#211e1c',
+        kapali: 'product/class8/kapali.webp',
+        acik: 'product/class8/acik.webp',
+        zeminKapali: '#bdbebd',
+        zeminAcik: '#2d261f',
         galeri: []
       },
       malzeme: 'Mat beyaz toz boyalı alüminyum, pirinç uç kapağı, akrilik difüzör',
@@ -166,10 +166,10 @@
       renk: 'siyah', renkAd: 'Mat siyah / pirinç', aktif: true,
       palette: { metal: '#2c2c30', shade: '#3a3a3e', glow: '#ffc46b' },
       gorseller: {
-        kapali: 'product/class9/light.webp',
-        acik: 'product/class9/dark.webp',
+        kapali: 'product/class9/kapali.webp',
+        acik: 'product/class9/acik.webp',
         zeminKapali: '#fefefe',
-        zeminAcik: '#25201c',
+        zeminAcik: '#3e3021',
         galeri: []
       },
       malzeme: 'Toz boyalı çelik boru üçayak, dökme konik abajur, pirinç eklem',
@@ -184,10 +184,10 @@
       renk: 'ahsap', renkAd: 'Ceviz / kirli beyaz keten', aktif: true,
       palette: { metal: '#7a5334', shade: '#f4efe2', glow: '#ffb347' },
       gorseller: {
-        kapali: 'product/class10/light.webp',
-        acik: 'product/class10/dark.webp',
-        zeminKapali: '#e2e1e0',
-        zeminAcik: '#29231f',
+        kapali: 'product/class10/kapali.webp',
+        acik: 'product/class10/acik.webp',
+        zeminKapali: '#e7e5e3',
+        zeminAcik: '#2c251f',
         galeri: []
       },
       malzeme: 'Torna işi masif ceviz gövde, keten kaplı silindir abajur',
@@ -202,10 +202,10 @@
       renk: 'ahsap', renkAd: 'Kızıl maun / krem pileli keten', aktif: true,
       palette: { metal: '#8f4a2c', shade: '#f2e6cf', glow: '#ffb347' },
       gorseller: {
-        kapali: 'product/class11/light.webp',
-        acik: 'product/class11/dark.webp',
-        zeminKapali: '#dfdfdf',
-        zeminAcik: '#251f19',
+        kapali: 'product/class11/kapali.webp',
+        acik: 'product/class11/acik.webp',
+        zeminKapali: '#dddddd',
+        zeminAcik: '#3f2e1f',
         galeri: []
       },
       malzeme: 'Torna işi masif maun koni gövde, el pileli keten abajur',
@@ -220,10 +220,10 @@
       renk: 'keten', renkAd: 'Ham keten / mat siyah', aktif: true,
       palette: { metal: '#2a2a2a', shade: '#ded2ba', glow: '#ffc06a' },
       gorseller: {
-        kapali: 'product/class12/light.webp',
-        acik: 'product/class12/dark.webp',
+        kapali: 'product/class12/kapali.webp',
+        acik: 'product/class12/acik.webp',
         zeminKapali: '#fbfcfc',
-        zeminAcik: '#28221c',
+        zeminAcik: '#332a21',
         galeri: []
       },
       malzeme: 'Yıkanmış ham keten fener abajur, mat siyah çelik silindir taban',
@@ -238,10 +238,10 @@
       renk: 'bronz', renkAd: 'Yaşlandırılmış bronz', oneCikan: true, aktif: true,
       palette: { metal: '#7d6a4f', shade: '#cdbb99', glow: '#ffbf5e' },
       gorseller: {
-        kapali: 'product/class13/light.webp',
-        acik: 'product/class13/dark.webp',
+        kapali: 'product/class13/kapali.webp',
+        acik: 'product/class13/acik.webp',
         zeminKapali: '#e7e5e3',
-        zeminAcik: '#25201b',
+        zeminAcik: '#31281e',
         galeri: []
       },
       malzeme: 'Yaşlandırılmış bronz gövde ve kollar, elde dövülmüş tabak abajurlar',
@@ -256,10 +256,10 @@
       renk: 'amber', renkAd: 'Amber pleksi / siyah-pirinç', aktif: true,
       palette: { metal: '#2b2723', shade: '#e8a23c', glow: '#ffb347' },
       gorseller: {
-        kapali: 'product/class14/light.webp',
-        acik: 'product/class14/dark.webp',
+        kapali: 'product/class14/kapali.webp',
+        acik: 'product/class14/acik.webp',
         zeminKapali: '#fefefe',
-        zeminAcik: '#201d1a',
+        zeminAcik: '#25201b',
         galeri: []
       },
       malzeme: 'Dökme amber akrilik kubbe, opal iç difüzör, siyah çelik ve pirinç gövde',

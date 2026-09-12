@@ -808,7 +808,7 @@ html[data-theme="dark"] .quote__onay{ color:#7ee2a0; background:#122b1c; border-
 .urun-medya[data-tip="foto"][data-isik="acik"]{ background:var(--zemin-acik,#2a2622); }
 .urun-medya[data-tip="foto"] img{
   position:absolute; inset:0; width:100%; height:100%;
-  object-fit:contain; object-position:center 46%;
+  object-fit:cover; object-position:center;
   transition:opacity .65s var(--ease);
 }
 .urun-medya__acik{ opacity:0; }
@@ -817,7 +817,7 @@ html[data-theme="dark"] .quote__onay{ color:#7ee2a0; background:#122b1c; border-
 
 /* Tek galeri karesi */
 .urun-medya[data-tip="foto-tek"]{ position:absolute; inset:0; }
-.urun-medya[data-tip="foto-tek"] img{ width:100%; height:100%; object-fit:contain; }
+.urun-medya[data-tip="foto-tek"] img{ width:100%; height:100%; object-fit:cover; }
 
 /* Fotoğraflı çerçevelerde iç boşluk ve arka plan olmasın */
 .card[data-medya="foto"] .card__art{ padding:0; background:transparent; }
@@ -1406,7 +1406,8 @@ html[data-theme="dark"] .iletisim__ikon--wa{ background:#10291b; border-color:#1
 }
 @media (max-width:900px){
   .hero-grid{ grid-template-columns:1fr; }
-  .hero .stage{ order:-1; aspect-ratio:1/.9; max-height:66vh; }
+  /* Fotoğraflarla aynı oran (3:4) — kırpma olmadan tam oturur */
+  .hero .stage{ order:-1; aspect-ratio:3/4; max-height:72vh; }
   .split{ grid-template-columns:1fr; }
   .collections{ grid-template-columns:1fr; }
   .quotes{ grid-template-columns:1fr; }
@@ -1446,8 +1447,8 @@ html[data-theme="dark"] .iletisim__ikon--wa{ background:#10291b; border-color:#1
   .head-user .avatar{ width:30px; height:30px; font-size:12px; }
 }
 @media (max-width:620px){
-  /* Tek kolonda 3:4 cerceve cok uzun kaliyor — biraz kisalt */
-  .card__art{ aspect-ratio:4/5; }
+  /* Tüm ürün fotoğrafları 1200x1600 (3:4) olarak normalize edildi;
+     çerçeve oranını değiştirmiyoruz ki hiçbir kartta boşluk kalmasın. */
   .grid-products{ grid-template-columns:1fr; }
 }
 @media (max-width:440px){
