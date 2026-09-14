@@ -1,5 +1,5 @@
 {
-  "name": "mush",
+  "name": "lambazade",
   "version": "1.0.0",
   "private": true,
   "description": "Lambazade — lamba e-ticaret sitesi. Derleme adımı yok; statik dosyalar + Netlify Functions (iyzico).",

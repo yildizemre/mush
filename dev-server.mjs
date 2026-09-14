@@ -85,7 +85,7 @@ async function fonksiyonCalistir(ad, istek, tamUrl) {
   return isleyici(req, { ip: istek.socket.remoteAddress });
 }
 
-createServer(async (istek, yanit) => {
+const sunucu = createServer(async (istek, yanit) => {
   const url = new URL(istek.url, 'http://' + (istek.headers.host || 'localhost:' + PORT));
 
   /* --- Netlify Functions --- */
@@ -136,7 +136,20 @@ createServer(async (istek, yanit) => {
     yanit.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8' })
       .end('<h1>404</h1><p><a href="/">Ana sayfaya dön</a></p>');
   }
-}).listen(PORT, () => {
-  const iy = process.env.IYZICO_API_KEY ? 'anahtarlar yüklü' : 'anahtar yok (demo)';
-  console.log('Lambazade → http://localhost:%d   | Netlify Functions aktif | iyzico: %s', PORT, iy);
 });
+
+// Port doluysa (başka bir terminalde açık kalmışsa) çökme, sıradaki boş porta geç
+let port = PORT;
+sunucu.on('error', (hata) => {
+  if (hata.code === 'EADDRINUSE' && port < PORT + 10) {
+    console.log('Port %d dolu, %d deneniyor…', port, port + 1);
+    sunucu.listen(++port);
+  } else {
+    throw hata;
+  }
+});
+sunucu.once('listening', () => {
+  const iy = process.env.IYZICO_API_KEY ? 'anahtarlar yüklü' : 'anahtar yok (demo)';
+  console.log('Lambazade → http://localhost:%d   | Netlify Functions aktif | iyzico: %s', sunucu.address().port, iy);
+});
+sunucu.listen(port);
