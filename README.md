@@ -35,7 +35,7 @@ Sonra `http://localhost:4173`. (`index.html`'e çift tıklamak da çalışır.)
 | --- | --- |
 | `index.html` | Hero (ışık anahtarlı), seçkiler, koleksiyonlar, atölye, yorumlar, bülten |
 | `shop.html` | Katalog: arama, koleksiyon/renk/fiyat filtresi, sıralama, "hepsini yak/söndür" |
-| `product.html?id=atlas-kol` | Galeri + ışık anahtarı, teknik özellikler, WhatsApp'tan sor |
+| `product.html?id=pergel` | Galeri + ışık anahtarı, teknik özellikler, WhatsApp'tan sor |
 | `cart.html` | Sepet → teslimat → ödeme → onay |
 | `login.html` | Giriş / üye ol · Google · Apple |
 | `account.html` | Siparişlerim, favorilerim, profil, adreslerim |
@@ -182,7 +182,7 @@ Diğer kırılmalar: ürün ızgarası tek kolona düşer ve kart çerçevesi 3:
 
 ## Marka notu
 
-Logo `assets/logo.png` (koyu tema için beyaz varyantı `assets/logo-beyaz.png`).
+Logo `assets/lambazade-logo.png` (koyu tema için krem varyantı `assets/lambazade-logo-beyaz.png`).
 İkisi de içerik sınırına kırpıldı; kırpılmamış orijinaller `*-ham.png` olarak
 duruyor. Üstteki duyuru şeridi kapatıldı — panelden
 **Header & duyuru → Duyuru çubuğu** ile geri açabilirsiniz.

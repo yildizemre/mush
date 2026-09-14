@@ -1,15 +1,15 @@
 /* ============================================================
-   MUSH — İçerik deposu (mini CMS)
+   LAMBAZADE — İçerik deposu (mini CMS)
    Tüm site içeriği buradan okunur. Admin paneli buraya yazar.
-   Kalıcılık: localStorage['mush.cms.v2'] + JSON yedekleme.
+   Kalıcılık: localStorage['lambazade.cms.v1'] + JSON yedekleme.
    ============================================================ */
 (function (g) {
   'use strict';
 
-  var ANAHTAR = 'mush.cms.v2';
-  var SEPET = 'mush.sepet.v2';
-  var FAVORI = 'mush.favori.v2';
-  var ISIK = 'mush.isik.v2';
+  var ANAHTAR = 'lambazade.cms.v1';
+  var SEPET = 'lambazade.sepet.v1';
+  var FAVORI = 'lambazade.favori.v1';
+  var ISIK = 'lambazade.isik.v1';
 
   /* ---------- yardımcılar ---------- */
   function klon(o) { return JSON.parse(JSON.stringify(o)); }
@@ -129,7 +129,7 @@
         for (var i = 0; i < 4; i++) o += h[Math.floor(Math.random() * h.length)];
         return o;
       }
-      var kod = 'MSH-' + blok() + '-' + blok() + '-' + blok();
+      var kod = 'LZD-' + blok() + '-' + blok() + '-' + blok();
       var kart = {
         kod: kod, tutar: tutar, kalan: tutar,
         tarih: new Date().toISOString(),
@@ -164,7 +164,7 @@
      ============================================================ */
   var Sepet = {
     satirlar: oku(SEPET, []),
-    kupon: oku('mush.kupon.v2', null),
+    kupon: oku('lambazade.kupon.v1', null),
 
     kaydet: function () {
       yaz(SEPET, this.satirlar);
@@ -217,17 +217,17 @@
         return { ok: false, mesaj: 'Bu kupon ' + k.minTutar.toLocaleString('tr-TR') + ' ₺ ve üzeri siparişlerde geçerli.' };
       }
       this.kupon = { kod: k.kod, tip: k.tip, deger: k.deger };
-      yaz('mush.kupon.v2', this.kupon);
+      yaz('lambazade.kupon.v1', this.kupon);
       this.kaydet();
       return { ok: true, mesaj: 'Kupon uygulandı: ' + k.kod };
     },
     kuponKaldir: function () {
       this.kupon = null;
-      yaz('mush.kupon.v2', null);
+      yaz('lambazade.kupon.v1', null);
     },
 
     /* --- Hediye kartı --- */
-    hediye: oku('mush.hediye.v2', null),
+    hediye: oku('lambazade.hediye.v1', null),
 
     hediyeUygula: function (kod) {
       var k = Store.hediyeKartBul(kod);
@@ -238,13 +238,13 @@
         return { ok: false, mesaj: 'Hediye kartı alırken başka bir hediye kartı kullanılamaz.' };
       }
       this.hediye = { kod: k.kod, kalan: k.kalan };
-      yaz('mush.hediye.v2', this.hediye);
+      yaz('lambazade.hediye.v1', this.hediye);
       this.kaydet();
       return { ok: true, mesaj: 'Hediye kartı uygulandı: ' + k.kod, kart: k };
     },
     hediyeKaldir: function () {
       this.hediye = null;
-      yaz('mush.hediye.v2', null);
+      yaz('lambazade.hediye.v1', null);
       this.kaydet();
     },
 

@@ -1,5 +1,5 @@
 /* ============================================================
-   MUSH — Yapılandırma
+   LAMBAZADE — Yapılandırma
    Canlıya almadan önce düzenlemeniz gereken tek dosya.
    ============================================================ */
 window.MUSH_CONFIG = {
@@ -35,15 +35,15 @@ window.MUSH_CONFIG = {
 
   /* ---------- İletişim ---------- */
   whatsapp: '905418629190',
-  whatsappMesaj: 'Merhaba, Mush lambaderleri hakkında bilgi almak istiyorum.',
+  whatsappMesaj: 'Merhaba, Lambazade lambaları hakkında bilgi almak istiyorum.',
 
   /* ---------- Yönetim paneli ----------
      local modda admin girişi bu e-posta ile yapılır. 'supabase' modunda
      kullanıcının user_metadata.role alanı 'admin' olmalıdır. */
-  adminEmail: 'admin@mush.com',
-  adminDemoSifre: 'mush1234',
+  adminEmail: 'admin@lambazade.com',
+  adminDemoSifre: 'lambazade1234',
 
   /* ---------- Site ---------- */
-  siteUrl: '',            // https://mush.com.tr — boş ise mevcut origin
+  siteUrl: '',            // https://lambazade.com — boş ise mevcut origin
   paraBirimi: 'TRY'
 };

@@ -78,7 +78,7 @@
 
     async saglayiciGiris(saglayici) {
       // Demo: gerçek OAuth yok. Google/Apple akışını taklit eden bir hesap açar.
-      var eposta = 'demo-' + saglayici + '@mush.local';
+      var eposta = 'demo-' + saglayici + '@lambazade.local';
       var liste = oku(KULLANICILAR, []);
       var k = liste.filter(function (x) { return x.eposta === eposta; })[0];
       if (!k) {

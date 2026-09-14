@@ -294,7 +294,7 @@ Dürüst olmak gerekirse gerçek bir mağaza için hâlâ şunlar gerekli:
 
 | Konu | Durum |
 | --- | --- |
-| Ürün fotoğrafı | 2 üründe var (`product/class1`, `class2`); diğerleri SVG çizim |
+| Ürün fotoğrafı | 5 ürün (`product/class15` … `class19`), hepsi 1200×1600 WebP |
 | Stok düşümü | Sipariş sonrası stok otomatik azalmıyor |
 | E-posta bildirimi | Yok (Netlify + Resend/SendGrid ile eklenebilir) |
 | Kargo entegrasyonu | Yok, takip kodu elle girilir |

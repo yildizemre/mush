@@ -13,7 +13,7 @@
   function siparisNo() {
     var t = Date.now().toString(36).toUpperCase().slice(-5);
     var r = Math.random().toString(36).toUpperCase().slice(2, 5);
-    return 'MSH-' + t + r;
+    return 'LZD-' + t + r;
   }
 
   var Odeme = {

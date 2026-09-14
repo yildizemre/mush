@@ -1,5 +1,5 @@
 /* ============================================================
-   MUSH — Ürün görseli katmanı
+   LAMBAZADE — Ürün görseli katmanı
    Ürünün fotoğrafı varsa fotoğrafı, yoksa SVG çizimi döndürür.
 
    Ürün verisinde:
@@ -104,7 +104,7 @@
     if (!kap || kap.dataset.yedek === '1') return;
 
     var u = g.Store && Store.urunBul ? Store.urunBul(kap.dataset.urun) : null;
-    console.warn('[Muush] Ürün fotoğrafı yüklenemedi, çizime düşüldü:', img.getAttribute('src'));
+    console.warn('[Lambazade] Ürün fotoğrafı yüklenemedi, çizime düşüldü:', img.getAttribute('src'));
     if (!u) return;
 
     kap.dataset.yedek = '1';

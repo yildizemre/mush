@@ -1,5 +1,5 @@
 /* ============================================================
-   MERRY — Tasarım sistemi (beyaz zemin / #ff3962 kırmızı)
+   LAMBAZADE — Tasarım sistemi (beyaz zemin / #b4441f kiremit)
    1. Tokens      2. Reset      3. Yardımcılar   4. Butonlar
    5. Header      6. Hero       7. Bölümler      8. Ürün kartı
    9. Mağaza     10. Ürün detay 11. Sepet/ödeme 12. Hesap/giriş
@@ -11,14 +11,14 @@
   color-scheme: light;
 
   /* Marka skalası — merry kırmızısı */
-  --m-50:  #fff1f4;
-  --m-100: #ffe1e8;
-  --m-200: #ffc3d0;
-  --m-300: #ff9bb0;
-  --m-400: #ff6c8c;
-  --m-500: #ff3962;   /* ana renk */
-  --m-600: #e81a4a;
-  --m-700: #bd0f3a;
+  --m-50:  #fbf1ed;
+  --m-100: #f6e0d6;
+  --m-200: #ecbfae;
+  --m-300: #dc977d;
+  --m-400: #c96b4a;
+  --m-500: #b4441f;   /* ana renk */
+  --m-600: #8b3316;
+  --m-700: #6c270f;
 
   /* Nötrler */
   --bg:        #fffcfc;
@@ -126,6 +126,10 @@ html[data-theme="dark"] .eyebrow{ border-color:#43202a; color:var(--m-300); }
 .grad-text{
   background:linear-gradient(100deg,var(--m-600),var(--m-500) 50%,var(--m-400));
   -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+/* Koyu zeminde kiremit tonu kaybolmasın: bir kademe açık skala */
+html[data-theme="dark"] .grad-text{
+  background-image:linear-gradient(100deg,var(--m-400),var(--m-300) 50%,var(--m-200));
 }
 
 /* ========== 4. BUTONLAR ========== */

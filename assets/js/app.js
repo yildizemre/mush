@@ -1,5 +1,5 @@
 /* ============================================================
-   MUSH — Çekirdek (ikonlar, header, footer, çekmece, kartlar)
+   LAMBAZADE — Çekirdek (ikonlar, header, footer, çekmece, kartlar)
    Sayfa denetleyicileri: pages.js
    ============================================================ */
 (function (g) {
@@ -185,7 +185,7 @@
     tb.addEventListener('click', function () {
       var yeni = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       document.documentElement.setAttribute('data-theme', yeni);
-      try { localStorage.setItem('mush.tema', yeni); } catch (e) {}
+      try { localStorage.setItem('lambazade.tema', yeni); } catch (e) {}
       temaCiz();
       // Tema değişimi BÜTÜN lambaları sıfırlar: koyu temada hepsi yanar,
       // açık temada hepsi söner. Tek tek yapılmış seçimler bu anda temizlenir;
@@ -307,7 +307,7 @@
       gov.innerHTML = '<div class="empty">' + I.sepet +
         '<p style="font-weight:600;color:var(--ink)">Sepetin henüz boş</p>' +
         '<p style="margin-top:6px;font-size:13px">Bir ışık seçmeye ne dersin?</p></div>';
-      alt.innerHTML = '<a class="btn btn--primary btn--block" href="shop.html">Lambaderlere göz at</a>';
+      alt.innerHTML = '<a class="btn btn--primary btn--block" href="shop.html">Lambalara göz at</a>';
       return;
     }
 
@@ -421,7 +421,7 @@
     var k = Store.site.karsilama;
     if (!k || !k.aktif) return;
     if (document.body.dataset.page === 'admin') return;
-    try { if (localStorage.getItem('mush.karsilama.v2')) return; } catch (e) {}
+    try { if (localStorage.getItem('lambazade.karsilama.v1')) return; } catch (e) {}
 
     var urun = Store.urunBul(k.urunId) || Store.aktifUrunler()[0];
 
@@ -469,7 +469,7 @@
       function kapat() {
         scrim.classList.remove('on');
         document.body.style.overflow = '';
-        try { localStorage.setItem('mush.karsilama.v2', '1'); } catch (e) {}
+        try { localStorage.setItem('lambazade.karsilama.v1', '1'); } catch (e) {}
         setTimeout(function () { scrim.remove(); }, 420);
         document.removeEventListener('keydown', esc);
       }
@@ -568,7 +568,7 @@
 
   /* ---------------- Tema (erken) ---------------- */
   try {
-    var t = localStorage.getItem('mush.tema');
+    var t = localStorage.getItem('lambazade.tema');
     if (t) document.documentElement.setAttribute('data-theme', t);
   } catch (e) {}
 

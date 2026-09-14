@@ -1,5 +1,5 @@
 /* ============================================================
-   MUSH — Sayfa denetleyicileri
+   LAMBAZADE — Sayfa denetleyicileri
    body[data-page] değerine göre App tarafından çağrılır.
    ============================================================ */
 (function (g) {
@@ -223,7 +223,7 @@
                 : Medya.render(atolyeUrun, { glow: true, boyut: 'sahne' })) +
               '<span class="uretim__kayit">● REC</span>' +
             '</div>' +
-            '<div class="uretim__alt"><span class="mono">SERİ NO · MSH-0247</span>' +
+            '<div class="uretim__alt"><span class="mono">SERİ NO · LZD-0247</span>' +
               '<span class="mono">24 SA YANIK TESTİ · GEÇTİ</span></div>' +
           '</div>' +
         '</div></div>';
@@ -268,7 +268,7 @@
       else {
         $('#bolumHediye').innerHTML = '<div class="wrap"><div class="hediye reveal">' +
           '<div class="hediye__kart">' +
-            '<div class="hediye__kart-ust"><span class="mono">MUSH</span>' +
+            '<div class="hediye__kart-ust"><span class="mono">LAMBAZADE</span>' +
               '<span class="mono">HEDİYE KARTI</span></div>' +
             '<div class="hediye__tutar" id="hediyeTutar">' + para(hk.tutarlar[1]) + '</div>' +
             '<div class="hediye__kart-alt"><span class="mono">24 AY GEÇERLİ</span>' +
@@ -396,7 +396,7 @@
 
     $('#filtreler').innerHTML =
       '<div class="filter"><h5>Arama</h5>' +
-        '<input class="field" id="fArama" type="search" placeholder="Lambader ara…" value="' + kacir(durum.arama) + '" ' +
+        '<input class="field" id="fArama" type="search" placeholder="Lamba ara…" value="' + kacir(durum.arama) + '" ' +
         'style="width:100%;padding:11px 14px;border-radius:12px;border:1px solid var(--line-2);background:var(--bg-2)"></div>' +
       '<div class="filter"><h5>Koleksiyon</h5><div class="chips" id="fKol">' +
         '<button class="chip" data-v="tumu">Tümü</button>' +
@@ -447,12 +447,12 @@
       kap.innerHTML = liste.length
         ? liste.map(A.kartHTML).join('')
         : '<div class="empty" style="grid-column:1/-1">' + I.ara +
-          '<p style="font-weight:600;color:var(--ink)">Eşleşen lambader yok</p>' +
+          '<p style="font-weight:600;color:var(--ink)">Eşleşen lamba yok</p>' +
           '<p style="margin-top:6px;font-size:13px">Filtreleri gevşetmeyi dene.</p></div>';
       A.revealKur();
 
       var k = Store.koleksiyonBul(durum.koleksiyon);
-      $('#shopBaslik').textContent = k ? k.ad + ' Koleksiyonu' : 'Tüm Lambaderler';
+      $('#shopBaslik').textContent = k ? k.ad + ' Koleksiyonu' : 'Tüm Lambalar';
       $('#shopOzet').textContent = k ? k.ozet : 'Atölyede tasarlanan, elde montajlanan gövdeler.';
 
       var np = new URLSearchParams();
@@ -543,7 +543,7 @@
     var indirim = u.eskiFiyat ? Math.round((1 - u.fiyat / u.eskiFiyat) * 100) : 0;
 
     $('#pdpInfo').innerHTML =
-      '<p class="crumbs"><a href="index.html">Ana sayfa</a> / <a href="shop.html">Lambaderler</a> / ' + kacir(u.ad) + '</p>' +
+      '<p class="crumbs"><a href="index.html">Ana sayfa</a> / <a href="shop.html">Lambalar</a> / ' + kacir(u.ad) + '</p>' +
       '<span class="eyebrow" style="margin-top:14px">' + kacir(Store.koleksiyonAd(u.koleksiyon)) + ' koleksiyonu</span>' +
       '<h1>' + kacir(u.ad) + '</h1>' +
       '<div class="rating" style="margin-top:12px">' + I.yildiz + (u.puan || 0).toFixed(1) +
@@ -596,13 +596,13 @@
           '<dt>Abajur</dt><dd>' + kacir(u.abajur) + '</dd>' +
           '<dt>Ampul</dt><dd>' + kacir(u.ampul) + '</dd>' +
           '<dt>Finiş</dt><dd>' + kacir(u.renkAd) + '</dd>' +
-          '<dt>Kod</dt><dd class="mono">MUSH-' + kacir(u.id.toUpperCase().replace(/-/g, '')) + '</dd>' +
+          '<dt>Kod</dt><dd class="mono">LZD-' + kacir(u.id.toUpperCase().replace(/-/g, '')) + '</dd>' +
         '</dl></div></details>' +
         '<details><summary>Öne çıkanlar</summary><div class="acc__body"><ul>' +
           (u.detay || []).map(function (d) { return '<li style="padding:4px 0">— ' + kacir(d) + '</li>'; }).join('') +
         '</ul></div></details>' +
         '<details><summary>Kargo, kurulum ve iade</summary><div class="acc__body">' +
-          'Lambaderler çift katmanlı köpük kalıpla, abajur ayrı kutuda gönderilir. Kurulum ortalama 10 dakika sürer ' +
+          'Lambalar çift katmanlı köpük kalıpla, abajur ayrı kutuda gönderilir. Kurulum ortalama 10 dakika sürer ' +
           've alet gerektirmez. 30 gün içinde iade etmek isterseniz kargoyu biz karşılıyoruz.</div></details>' +
         '<details><summary>Ampul önerisi</summary><div class="acc__body">' +
           '2700K sıcak beyaz, 806 lümen ve kısılabilir (dimmable) bir LED öneriyoruz. Soğuk beyaz ampuller ' +
@@ -715,7 +715,7 @@
         $('#cartKok').innerHTML = '<div class="empty" style="padding:80px 20px">' + I.sepet +
           '<h2 class="h-md" style="margin-bottom:8px;color:var(--ink)">Sepetin boş</h2>' +
           '<p>Işığını seçmek için koleksiyona dön.</p>' +
-          '<a class="btn btn--primary" style="margin-top:22px" href="shop.html">Lambaderlere göz at</a></div>';
+          '<a class="btn btn--primary" style="margin-top:22px" href="shop.html">Lambalara göz at</a></div>';
         return;
       }
 
@@ -812,7 +812,7 @@
           '<div class="hediye-giris">' +
             '<label for="hediyeNo">' + I.hediye + ' Hediye kartı numaranız var mı?</label>' +
             '<div class="promo">' +
-              '<input id="hediyeNo" placeholder="MSH-XXXX-XXXX-XXXX" ' +
+              '<input id="hediyeNo" placeholder="LZD-XXXX-XXXX-XXXX" ' +
                 'autocomplete="off" spellcheck="false" style="text-transform:uppercase">' +
               '<button class="btn btn--ghost btn--sm" type="button" id="hediyeUygula">Kullan</button>' +
             '</div>' +
@@ -885,7 +885,7 @@
         if (sonuc.durum === 'yonlendir') {
           // Bakiye ve kart numarası ödeme onaylandıktan sonra işlenir (odeme-sonuc.html)
           Odeme.siparisiKaydet(sonuc.siparis, 'odemeBekliyor');
-          try { localStorage.setItem('mush.bekleyenSiparis', sonuc.siparis.siparisNo); } catch (e) {}
+          try { localStorage.setItem('lambazade.bekleyenSiparis', sonuc.siparis.siparisNo); } catch (e) {}
           location.href = sonuc.url;
           return;
         }
@@ -983,7 +983,7 @@
       $('#authKok').innerHTML =
         '<div class="auth-card">' +
           '<div class="center" style="margin-bottom:22px">' +
-            '<h1 class="h-md">' + (sekme === 'giris' ? 'Tekrar hoş geldin' : 'Muush’a katıl') + '</h1>' +
+            '<h1 class="h-md">' + (sekme === 'giris' ? 'Tekrar hoş geldin' : 'Lambazade’ye katıl') + '</h1>' +
             '<p class="muted" style="margin-top:7px;font-size:14px">' +
               (sekme === 'giris' ? 'Siparişlerini ve favorilerini görmek için giriş yap.' : 'Hesap aç, siparişlerini takip et.') +
             '</p></div>' +
@@ -1202,7 +1202,7 @@
     hazir();
     var q = new URLSearchParams(location.search);
     var no = null;
-    try { no = localStorage.getItem('mush.bekleyenSiparis'); } catch (e) {}
+    try { no = localStorage.getItem('lambazade.bekleyenSiparis'); } catch (e) {}
     var basarili = q.get('status') !== 'failure';
 
     var uretilen = [];
@@ -1234,7 +1234,7 @@
         }
       }
       Sepet.bosalt();
-      try { localStorage.removeItem('mush.bekleyenSiparis'); } catch (e) {}
+      try { localStorage.removeItem('lambazade.bekleyenSiparis'); } catch (e) {}
     }
 
     $('#sonucKok').innerHTML = basarili

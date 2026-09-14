@@ -138,5 +138,5 @@ createServer(async (istek, yanit) => {
   }
 }).listen(PORT, () => {
   const iy = process.env.IYZICO_API_KEY ? 'anahtarlar yüklü' : 'anahtar yok (demo)';
-  console.log('Mush → http://localhost:%d   | Netlify Functions aktif | iyzico: %s', PORT, iy);
+  console.log('Lambazade → http://localhost:%d   | Netlify Functions aktif | iyzico: %s', PORT, iy);
 });

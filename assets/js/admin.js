@@ -632,7 +632,7 @@
 
       '<div class="ad-kart"><h3>Hazır paletler</h3><p>Tıklayın, renk alanları dolsun.</p>' +
         '<div class="chips" id="paletler">' +
-          [['merry kırmızısı', '#ff3962', '#e81a4a'], ['Fuşya', '#f5296f', '#cc0d53'],
+          [['Lambazade kiremiti', '#b4441f', '#8b3316'], ['Merry kırmızısı', '#ff3962', '#e81a4a'], ['Fuşya', '#f5296f', '#cc0d53'],
            ['Mercan', '#ff5252', '#e02e2e'], ['Bordo', '#c31d45', '#94112f'],
            ['Turuncu', '#ff6a13', '#e04f00']].map(function (p) {
             return '<button class="chip chip--dot" data-p1="' + p[1] + '" data-p2="' + p[2] + '">' +
@@ -1174,7 +1174,7 @@
         var b = new Blob([Store.disaAktar()], { type: 'application/json' });
         var a = document.createElement('a');
         a.href = URL.createObjectURL(b);
-        a.download = 'mush-yedek-' + new Date().toISOString().slice(0, 10) + '.json';
+        a.download = 'lambazade-yedek-' + new Date().toISOString().slice(0, 10) + '.json';
         a.click();
         URL.revokeObjectURL(a.href);
         bildir('Yedek indirildi.');
